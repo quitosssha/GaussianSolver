@@ -33,13 +33,13 @@ public class GaussianApp
         var result = gaussianSolver.Solve(matrix);
         var finalSystem = EquationSystem.FromMatrix(result.Matrix);
         logger.LogInformation("Итоговая система:{line}{system}", Environment.NewLine, finalSystem);
-
         WriteResult(result);
+        
         var validationResult = gaussianValidator.Validate(matrix, result);
-        if (validationResult.IsValid)
-            logger.LogInformation("Результат проверки: {Message}", validationResult.Message);
-        else
-            logger.LogError("Результат проверки: {Message}", validationResult.Message);
+        logger.Log(
+            validationResult.IsValid ? LogLevel.Information : LogLevel.Error, 
+            "Результат проверки: {Message}", 
+            validationResult.Message);
     }
 
     private void WriteResult(GaussianSolution result)
