@@ -19,15 +19,17 @@ public class GaussianSolver
         var result = CalculateStraightStroke(equationSystemMatrix);
 
         var matrix = result.Matrix;
-        var rank = matrix.VarsCount();
+        var varsCount = matrix.VarsCount();
 
-        if (!matrix.IsCompatible(result.LastPivotRow))
+        if (!matrix.IsCompatible())
             return GaussianSolution.None(matrix);
 
-        if (result.FreeColumns.Count == 0 && result.LastPivotRow >= rank)
+        if (result.FreeColumns.Count == 0 && result.LastPivotRow >= varsCount)
         {
-            EnsureReducedEchelonMatrix();
-            var solution = matrix.CalculateSingleSolution();
+            if (!matrix.IsReducedEchelonMatrix())
+                throw GaussianSolverException.NotReducedEchelonMatrix(matrix);
+            
+            var solution = matrix.GetFreeTerms();
             return GaussianSolution.Unique(matrix, solution);
         }
 
@@ -35,18 +37,6 @@ public class GaussianSolver
         logger.LogTraceParts("particular solution:", string.Join(", ", particularSolution));
         var basisVectors = CalculateBasisVectors(result);
         return GaussianSolution.Infinite(matrix, particularSolution, basisVectors);
-
-        void EnsureReducedEchelonMatrix()
-        {
-            for (var i = 0; i < matrix.VarsCount(); i++)
-            {
-                if (matrix[i, i].IsZero())
-                    throw GaussianSolverException.NotReducedEchelonMatrix(matrix);
-                for (var j = 0; j < matrix.GetLength(0); j++)
-                    if (i != j && !matrix[j, i].IsZero())
-                        throw GaussianSolverException.NotReducedEchelonMatrix(matrix);
-            }
-        }
     }
 
     private StraightStrokeResult CalculateStraightStroke(double[,] equationSystemMatrix)
