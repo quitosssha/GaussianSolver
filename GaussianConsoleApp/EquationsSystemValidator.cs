@@ -12,5 +12,8 @@ public static class EquationsSystemValidator
         
         if (system.Equations.Any(equation => equation.Coefficients.Length != system.VariablesCount))
             throw new ArgumentException("Все уравнения должны содержать одинаковое количество переменных");
+
+        if (system.VariablesCount == 0)
+            throw new ArgumentException("Количество переменных в системе должно быть ненулевым");
     }
 }
