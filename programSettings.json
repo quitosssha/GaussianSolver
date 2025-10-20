@@ -1,0 +1,21 @@
+{
+	"linearAlgebraicEquationsSystem": [
+		{
+			"coefficients": [1, 2, 2, 1],
+			"freeTerm": 0
+		},
+		{
+			"coefficients": [2, 3, 3, 2],
+			"freeTerm": 0
+		},
+		{
+			"coefficients": [3, 5, 4, 2],
+			"freeTerm": 1
+		},
+		{
+			"coefficients": [4, 7, 6, 2],
+			"freeTerm": 2
+		}
+	],
+	"logLevel": "debug"
+}
