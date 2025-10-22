@@ -68,7 +68,7 @@ public class GaussianApp
     private static string BuildSolutions(GaussianSolution result)
     {
         var particularSolution = result.ParticularSolution;
-        var basisVectors = result.BasicVectors;
+        var basisVectors = result.BasisVectors;
         var equationsCount = result.Matrix.GetLength(0);
         var sb = new StringBuilder();
         

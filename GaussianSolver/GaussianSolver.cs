@@ -16,7 +16,8 @@ public class GaussianSolver
 
     public GaussianSolution Solve(double[,] equationSystemMatrix)
     {
-        var result = CalculateStraightStroke(equationSystemMatrix);
+        var extendedMatrix = ExtendAndCloneMatrix(equationSystemMatrix);
+        var result = CalculateStraightStroke(extendedMatrix);
 
         var matrix = result.Matrix;
         var varsCount = matrix.VarsCount();
@@ -39,9 +40,24 @@ public class GaussianSolver
         return GaussianSolution.Infinite(matrix, particularSolution, basisVectors);
     }
 
-    private StraightStrokeResult CalculateStraightStroke(double[,] equationSystemMatrix)
+    private static double[,] ExtendAndCloneMatrix(double[,] matrix)
     {
-        var matrix = (double[,])equationSystemMatrix.Clone();
+        var varsCount = matrix.VarsCount();
+        var equationsCount = matrix.GetLength(0);
+        if (equationsCount >= varsCount)
+            return (double[,])matrix.Clone();
+        
+        var lastInitIndex = equationsCount - 1;
+        var newMatrix = new double[varsCount, varsCount + 1];
+        for (var i = 0; i <= lastInitIndex; i++)
+        for (var j = 0; j < varsCount + 1; j++)
+            newMatrix[i, j] = matrix[i, j];
+        
+        return newMatrix;
+    }
+
+    private StraightStrokeResult CalculateStraightStroke(double[,] matrix)
+    {
         var pivotColumns = new List<int>(); // Базисные переменные
         var freeColumns = new List<int>(); // Свободные переменные
 

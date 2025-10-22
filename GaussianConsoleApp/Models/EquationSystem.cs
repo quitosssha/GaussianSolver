@@ -5,11 +5,7 @@ public class EquationSystem
     public EquationSystem(Equation[] equations)
     {
         VariablesCount = equations.FirstOrDefault()?.Coefficients.Length ?? 0;
-        var diff = VariablesCount - equations.Length;
-        if (diff < 0)
-            diff = 0;
-        var newEquations = equations.Concat(Enumerable.Repeat(Equation.Empty(VariablesCount), diff)).ToArray();
-        Equations = newEquations;
+        Equations = equations;
     }
 
     public int VariablesCount { get; }

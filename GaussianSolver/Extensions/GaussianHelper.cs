@@ -125,4 +125,34 @@ public static class GaussianHelper
 
         return sb.ToString();
     }
+    
+    public static bool ContentEquals(this double[] arrayA, double[] arrayB)
+    {
+        if (arrayA == null || arrayB == null) 
+            return arrayA == arrayB;
+        if (arrayA.Length != arrayB.Length)
+            return false;
+        
+        for (var i = 0; i < arrayA.Length; i++)
+            if (!arrayA[i].Is(arrayB[i]))
+                return false;
+        
+        return true;
+    }
+    
+    public static bool ContentEquals(this double[,] matrixA, double[,] matrixB)
+    {
+        if (matrixA == null || matrixB == null) 
+            return matrixA == matrixB;
+        if (matrixA.GetLength(0) != matrixB.GetLength(0) 
+            || matrixA.GetLength(1) != matrixB.GetLength(1))
+            return false;
+        
+        for (var i = 0; i < matrixA.GetLength(0); i++)
+        for (var j = 0; j < matrixA.GetLength(1); j++)
+            if (!matrixA[i, j].Is(matrixB[i, j]))
+                return false;
+        
+        return true;
+    }
 }

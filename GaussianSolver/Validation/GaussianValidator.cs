@@ -34,13 +34,13 @@ public class GaussianValidator
         if (!particularResult.IsValid)
             return particularResult;
 
-        if (solution.BasicVectors == null)
+        if (solution.BasisVectors == null)
             return ValidationResult.Invalid("Бесконечное множество решений без базисных векторов");
 
-        var basisRows = solution.BasicVectors.GetLength(0);
+        var basisRows = solution.BasisVectors.GetLength(0);
         for (var i = 0; i < basisRows; i++)
         {
-            var basisVector = GetRow(solution.BasicVectors, i);
+            var basisVector = GetRow(solution.BasisVectors, i);
             if (!CheckSatisfiesEquations(originalMatrix, basisVector, true, i))
                 return ValidationResult.Invalid($"Базисный вектор {i} не соответствует однородной системе");
         }
