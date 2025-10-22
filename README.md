@@ -1,4 +1,6 @@
 ## Консольное приложение для решения СЛАУ методом Гаусса
+[![Build and Test](https://github.com/quitosssha/GaussianSolver/actions/workflows/dotnet.yml/badge.svg?branch=master)](https://github.com/quitosssha/GaussianSolver/actions/workflows/dotnet.yml)
+
 ### Логика работы:
 
 Работает с системой линейных алгебраических уравнений (СЛАУ), как с матрицей коэффициентов.
