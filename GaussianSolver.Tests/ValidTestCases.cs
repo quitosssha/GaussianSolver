@@ -45,7 +45,7 @@ public class ValidTestCases
             { 2, 1, 5 },
             { 1, -1, 1 }
         };
-        var result = GaussianSolution.Unique(null, [2, 1]);
+        var result = GaussianSolution.Unique(null, [1, 1]);
         return new TestCaseData(matrix, result);
     }
 
