@@ -132,7 +132,7 @@ public class ValidTestCases
         };
         var basisVectors = new double[,]
         {
-            { -0.6666666666666667, -0.3333333333333333, 1.0 }
+            { -2/3d, -1/3d, 1.0 }
         };
         var result = GaussianSolution.Infinite(null, [3, 3, 0], basisVectors);
         return new TestCaseData(matrix, result);
