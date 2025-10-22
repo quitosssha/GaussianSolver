@@ -1,10 +1,6 @@
-name: Build and Test .NET 8
+name: Build and Test
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+on: [ push, pull_request ]
     
 jobs:
   build-and-test:
