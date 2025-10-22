@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using GaussianSolver.Models;
+﻿using GaussianSolver.Models;
 using NUnit.Framework;
 
 namespace GaussianSolver.Tests;
@@ -8,7 +7,7 @@ public class ValidTestCases
 {
     public static IEnumerable<TestCaseData> GetAll() =>
         GetUnique()
-            .Concat(GetInfinite())
+            .Concat(GetInfinite(withAnySolutionCases: true))
             .Concat(GetNone());
 
     public static IEnumerable<TestCaseData> GetUnique()
@@ -20,13 +19,21 @@ public class ValidTestCases
         yield return NeedSwap3X3().SetName("Unique05_" + nameof(NeedSwap3X3));
     }
 
-    public static IEnumerable<TestCaseData> GetInfinite()
+    public static IEnumerable<TestCaseData> GetInfinite(bool withAnySolutionCases)
     {
-        yield return InfiniteZero1X2().SetName("Infinite01_" + nameof(InfiniteZero1X2));
-        yield return InfiniteCommon2X3().SetName("Infinite02_" + nameof(InfiniteCommon2X3));
-        yield return InfiniteDegenerate3X3().SetName("Infinite03_" + nameof(InfiniteDegenerate3X3));
-        yield return InfiniteDoubleDegenerate3X3().SetName("Infinite04_" + nameof(InfiniteDoubleDegenerate3X3));
-        yield return InfiniteSkipStep2X4().SetName("Infinite05_" + nameof(InfiniteSkipStep2X4));
+        yield return InfiniteCommon2X3().SetName("Infinite01_" + nameof(InfiniteCommon2X3));
+        yield return InfiniteDegenerate3X3().SetName("Infinite02_" + nameof(InfiniteDegenerate3X3));
+        yield return InfiniteDoubleDegenerate3X3().SetName("Infinite03_" + nameof(InfiniteDoubleDegenerate3X3));
+        yield return InfiniteSkipStep2X4().SetName("Infinite04_" + nameof(InfiniteSkipStep2X4));
+        if (!withAnySolutionCases) 
+            yield break;
+        foreach (var testCaseData in GetInfiniteWithAnySolution())
+            yield return testCaseData;
+    }
+
+    private static IEnumerable<TestCaseData> GetInfiniteWithAnySolution()
+    {
+        yield return InfiniteZero1X2().SetName("InfiniteAbsolute01_" + nameof(InfiniteZero1X2));
     }
 
     public static IEnumerable<TestCaseData> GetNone()
