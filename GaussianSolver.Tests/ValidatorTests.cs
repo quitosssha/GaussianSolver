@@ -59,7 +59,8 @@ public class ValidatorTests
     private void AssertInvalid(double[,] originalMatrix, GaussianSolution solution)
     {
         var validationResult = gaussianValidator.Validate(originalMatrix, solution);
-        Console.WriteLine(validationResult.Message);
+        if (validationResult.IsValid)
+            Console.WriteLine(validationResult.Message);
         validationResult.IsValid.Should().BeFalse();
     }
 
